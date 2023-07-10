@@ -1,0 +1,85 @@
+@import "./colors.scss";
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    height: 5vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: $offWhite;
+}
+
+.navButton {
+    display: flex;
+    color: black;
+    text-decoration: none;
+    height: 100%;
+    align-items: center;
+    padding: 0px 10px;
+    font-weight: bold;
+}
+
+.navButton:hover {
+    background-color: $offGrey;
+}
+
+.navButton:has(img), .navImage {
+    height: 100%;
+}
+
+.navButtonTitle {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.lastNavItem {
+    margin-right: 10px;
+}
+
+#navLogo {
+    align-self: flex-start;
+}
+
+#RightAlignedChildren {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#heroContainer {
+    text-align: left;
+    position: relative;
+}
+
+#hero {
+    width: 100%;
+    height: 70vh;
+    object-fit: cover;
+}
+
+#heroContainer h1 {
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
+}
+
+.article {
+    padding: 20px;
+    text-align: left;
+}
