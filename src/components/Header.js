@@ -11,16 +11,12 @@ function NavButton(props) {
 
     if(img) {
         return (
-            // <div id={id} class="navButton">
-                <a href={href} className="navButton"><img src={img} class="navImage" alt={alt} /></a>
-            // </div>
+            <a href={href} className="navButton"><img src={img} className="navImage" alt={alt} /></a>
         )
     }
     else {
         return (
-            // <div id={id} class={lastchild ? "navButton lastNavItem" : "navButton"}>
-                <a class={lastchild ? "navButton lastNavItem" : "navButton"} href={href}><div class="navButtonTitle">{title}</div></a>
-            // </div>
+            <a className={lastchild ? "navButton lastNavItem" : "navButton"} href={href}><div className="navButtonTitle">{title}</div></a>
         )
     }
 }
