@@ -1,8 +1,8 @@
-import Header from "../components/Header"
 import Hero from "../components/Hero"
 import errorImg from "../assets/images/404.jpeg"
 
 export default function NotFound() {
+    document.title = "The Mighty Pirates | 404"
     return(
         <>
             <Hero src={errorImg} title="ERROR 404: Page Not Found"></Hero>

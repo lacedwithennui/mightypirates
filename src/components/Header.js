@@ -1,4 +1,3 @@
-import smallwahe from "../assets/images/smallwahe.png"
 import menu from "../assets/images/menu.png"
 
 function NavButton(props) {
@@ -54,7 +53,7 @@ export default function Header() {
             <div id="rightAlignedChildren" className="headerChild">
                 <div id="headerButtons">
                     <NavButton title="Home" href="/" id="home" />
-                    <NavButton title="Design History" href="/about" id="about" />
+                    <NavButton title="Design History" href="/design-history" id="design-history" />
                     <NavButton title="Contact Us" href="/contact" id="contact" lastchild />
                 </div>
                 <NavButton img={menu} alt="menu button" imgid="menuImg" id="menuButton" onclick={() => expandMenu()}></NavButton>

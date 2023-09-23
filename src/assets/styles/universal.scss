@@ -154,8 +154,20 @@ ul {
     max-width: 100%;
 }
 
-.leftColumn, .rightColumn {
-    width: 50%;
-    height: 10%;
+.gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.galleryimg {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
     overflow: hidden;
+    object-fit: contain;
+}
+
+.featured {
+    width: 50%;
 }

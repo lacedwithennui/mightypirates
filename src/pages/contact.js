@@ -1,6 +1,7 @@
 import Hero from "../components/Hero";
 
 export default function Contact() {
+    document.title = "The Mighty Pirates | Contact"
     return (
         <>
             <Hero />
