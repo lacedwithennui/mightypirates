@@ -1,15 +1,6 @@
 import menu from "../assets/images/menu.png"
 
-function NavButton(props) {
-    let title = props["title"];
-    let href = props["href"];
-    let id = props["id"];
-    let imgid = props["imgid"];
-    let img = props["img"];
-    let alt = props["alt"];
-    let lastchild = props["lastchild"]
-    let onclick = props["onclick"]
-
+function NavButton({title, href, id, imgid, img, alt, lastchild, onclick}) {
     if(img) {
         return (
             <a href={href} className="navButton" id={id} onClick={onclick}><img src={img} className="navImage" alt={alt} id={imgid} /> <span className="navButtonTitle">{title}</span></a>
@@ -56,7 +47,7 @@ export default function Header() {
                     <NavButton title="Design History" href="/design-history" id="design-history" />
                     <NavButton title="Contact Us" href="/contact" id="contact" lastchild />
                 </div>
-                <NavButton img={menu} alt="menu button" imgid="menuImg" id="menuButton" onclick={() => expandMenu()}></NavButton>
+                <NavButton img={menu} alt="menu button" imgid="menuImg" id="menuButton" onclick={() => expandMenu()} />
             </div>
         </div>
     )

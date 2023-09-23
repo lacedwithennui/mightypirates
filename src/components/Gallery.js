@@ -1,18 +1,17 @@
-export default function Gallery(props) {
-    let content = props["content"];
+export default function Gallery({children}) {
     return(
         <>
             <div className="gallery">
-                {content}
+                {children}
             </div>
         </>
     )
 }
 
-export function GalleryImage(props) {
+export function GalleryImage({featured, src, alt}) {
     return(
         <>
-            <img className={props["featured"] ? "galleryimg featured" : "galleryimg"} src={props["src"]} alt={props["alt"]}></img>
+            <img className={featured ? "galleryimg featured" : "galleryimg"} src={src} alt={alt} />
         </>
     )
 }
