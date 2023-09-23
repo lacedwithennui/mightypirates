@@ -5,7 +5,7 @@ export default function Contact() {
         <>
             <Hero />
             <div id="mainContent">
-                <p><b>Webmaster: </b> <a href="hparkerbelmont@gmail.com">hparkerbelmont@gmail.com</a></p>
+                <p><b>Webmaster: </b> <a href="mailto:hparkerbelmont@gmail.com">hparkerbelmont@gmail.com</a></p>
             </div>
         </>
     )

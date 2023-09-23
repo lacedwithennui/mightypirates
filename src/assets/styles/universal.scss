@@ -9,10 +9,19 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-
 #root {
     display: flex;
     flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0px;
+    color: $offBlack;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
 }
 
 #header {
@@ -26,19 +35,25 @@ body {
 
 .navButton {
     display: flex;
-    color: black;
+    color: $offBlack;
     text-decoration: none;
     height: 100%;
     align-items: center;
-    padding: 0px 10px;
+    padding: 0px 1vw;
     font-weight: bold;
 }
 
 .navButton:hover {
-    background-color: $offGrey;
+    background-color: $pirateGrey;
 }
 
 .navButton:has(img), .navImage {
+    height: 100%;
+}
+
+#headerButtons {
+    display: flex;
+    flex-direction: row;
     height: 100%;
 }
 
@@ -46,25 +61,47 @@ body {
     display: flex;
     text-align: center;
     justify-content: center;
-}
-
-.lastNavItem {
-    margin-right: 10px;
+    font-size: 2vh;
+    white-space: nowrap;
 }
 
 #navLogo {
     align-self: flex-start;
 }
 
-#RightAlignedChildren {
+#menuImg {
+    height: 2.8vh;
+}
+
+@media only screen and (orientation: landscape) {
+    #menuButton {
+        display: none;
+    }
+    #headerButtons {
+        display: flex;
+    }
+}
+
+@media only screen and (orientation: portrait) {
+    #menuButton {
+        display: flex;
+    }
+    #headerButtons {
+        display: none;
+    }
+}
+
+.headerChild {
     height: 100%;
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 #heroContainer {
     text-align: left;
     position: relative;
+    // padding: 2.8vw;
 }
 
 #hero {
@@ -75,11 +112,50 @@ body {
 
 #heroContainer h1 {
     position: absolute;
-    bottom: 0px;
-    left: 20px;
+    bottom: 2.8vw;
+    left: 2.8vw;
+    color: $offWhite;
+}
+
+.padded {
+    padding: 2.8vw;
+}
+
+.paddedNoTop {
+    padding: 0 2.8vw 2.8vw 2.8vw;
+}
+
+.paddedNoVertical {
+    padding: 0 2.8vw 0 2.8vw;
+}
+
+.paddedVertical {
+    padding: 2.8vw 0 2.8vw 0;
+}
+
+.toc {
+    list-style: none;
+    padding-left: 2.8vw;
+}
+
+.tocitem, .styledAnchor {
+    text-decoration: none;
+    font-weight: bold;
+    color: $offBlack;
 }
 
 .article {
-    padding: 20px;
+    // padding: 2.8vw;
     text-align: left;
+    font-size: 15pt;
+}
+
+.meetingImg {
+    max-width: 100%;
+}
+
+.leftColumn, .rightColumn {
+    width: 50%;
+    height: 10%;
+    overflow: hidden;
 }

@@ -1,4 +1,4 @@
-import nancy from "../assets/images/video1sc.png";
+import sketch from "../assets/images/pirateSketch.jpeg";
 import Hero from "../components/Hero";
 
 export default function Home() {
@@ -6,10 +6,11 @@ export default function Home() {
 
     return (
         <>
-            <Hero src={nancy} title="Alternative Fuel and Healing for Leaders" />
+            <Hero src={sketch} title="Meet The Mighty Pirates" />
             <div id="mainContent">
-                <p className="article">
-                    <b>Wahe</b> is a kundalini yoga term meaning "wonderful beyond words." Creating your Wahe Life is all about empowering yourself to be an authentic leader.
+                <p className="article padded">
+                    We are <b>Commanding</b>. We Are <b>Mighty</b>.
+                    The Mighty Pirates are a team from Alexandria City High School in Alexandria, VA competing in the 2024 SNAME boat design competition.
                 </p>
             </div>
         </>
