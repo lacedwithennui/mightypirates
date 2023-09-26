@@ -35,7 +35,7 @@ export async function convertImages(imageElement, callback) {
 export async function submitPost(event) {
     event.preventDefault();
     let dateString = document.getElementById("dateString").value.toString();
-    let imageIDs = convertImages(document.getElementById("imageFiles"), (ids) => {
+    convertImages(document.getElementById("imageFiles"), (ids) => {
         let idString = betterArrToString(ids);
         let description = document.getElementById("description").value.toString();
         console.log("dateString: " + dateString);

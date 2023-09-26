@@ -1,6 +1,4 @@
 import Hero from "../components/Hero"
-import manila from "../assets/images/manila.jpeg"
-import ballCad from "../assets/images/snamemonballcad.png"
 import prototype from "../assets/images/boatPrototype.jpeg"
 import Gallery, { GalleryImage } from "../components/Gallery"
 import { useEffect, useState } from "react"

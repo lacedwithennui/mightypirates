@@ -1,6 +1,6 @@
 import pirateSketch from "../assets/images/pirateSketch.jpeg"
 import Hero from "../components/Hero";
-import { convertImages, submitPost } from "../components/api";
+import { submitPost } from "../components/api";
 
 export default function Submission() {
     return(
