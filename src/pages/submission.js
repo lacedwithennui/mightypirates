@@ -3,6 +3,7 @@ import Hero from "../components/Hero";
 import { submitPost } from "../components/api";
 
 export default function Submission() {
+    document.title = "Mighty Pirates | Submit a Meeting"
     return(
         <>
             <Hero title="Submission Form" src={pirateSketch} />

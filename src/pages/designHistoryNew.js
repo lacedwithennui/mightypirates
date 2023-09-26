@@ -1,5 +1,6 @@
 import Hero from "../components/Hero"
 import prototype from "../assets/images/boatPrototype.jpeg"
+import loading from "../assets/images/loading.gif"
 import Gallery, { GalleryImage } from "../components/Gallery"
 import { useEffect, useState } from "react"
 
@@ -13,7 +14,11 @@ export default function DesignHistory() {
         async function set() {
             let meetings = await AllMeetings();
             setAllMeetings(await meetings);
-            setAllTOC(<TOC meetings={meetings} />)
+            setAllTOC(<TOC meetings={meetings} />);
+            for(let i = 0; i < document.getElementsByClassName("loading").length; i++) {
+                let loadingGif = document.getElementsByClassName("loading")[i]
+                loadingGif.style.display = "none";
+            }
         }
         set();
     }, []);
@@ -22,11 +27,13 @@ export default function DesignHistory() {
             <Hero src={prototype} title="Design History" />
             <div id="mainContent">
                 <h1 className="padded">Table of Contents</h1>
+                <img className="loading paddedNoVertical" src={loading} alt="loading..." />
                 <ul className="toc">
                     {/* <TOCItem date="092123"></TOCItem> */}
                     {allTOC}
                 </ul>
                 <h1 className="padded">Meetings</h1>
+                <img className="loading paddedNoVertical" src={loading} alt="loading..." />
                 {allMeetings}
             </div>
         </>
