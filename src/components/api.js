@@ -34,6 +34,7 @@ export async function convertImages(imageElement, callback) {
 
 export async function submitPost(event) {
     event.preventDefault();
+    document.getElementById("submit").disabled = true;
     let dateString = document.getElementById("dateString").value.toString();
     convertImages(document.getElementById("imageFiles"), (ids) => {
         let idString = betterArrToString(ids);
@@ -54,7 +55,8 @@ export async function submitPost(event) {
                 })
                 .then((json) => {
                     console.log(json);
-                });
+                })
+                .then(() => {alert("Success!"); document.getElementById("submit").disabled = false});
         }, 1000)
     });
 }
