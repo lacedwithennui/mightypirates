@@ -6,11 +6,14 @@ import { useEffect, useState } from "react"
 export default function DesignHistory() {
     document.title = "The Mighty Pirates | Design History"
     const [allMeetings, setAllMeetings] = useState([])
+    const [allTOC, setAllTOC] = useState([]);
 
 
     useEffect(() => {
         async function set() {
-            setAllMeetings(await AllMeetings());
+            let meetings = await AllMeetings();
+            setAllMeetings(await meetings);
+            setAllTOC(<TOC meetings={meetings} />)
         }
         set();
     }, []);
@@ -20,7 +23,8 @@ export default function DesignHistory() {
             <div id="mainContent">
                 <h1 className="padded">Table of Contents</h1>
                 <ul className="toc">
-                    <TOCItem date="092123"></TOCItem>
+                    {/* <TOCItem date="092123"></TOCItem> */}
+                    {allTOC}
                 </ul>
                 <h1 className="padded">Meetings</h1>
                 {allMeetings}
@@ -33,6 +37,19 @@ function TOCItem({date}) {
     return (
         <>
             <li><h2><a href={"#" + date} className="tocitem">{date.slice(0,2)+"/"+date.slice(2,4)+"/"+date.slice(4,6)}</a></h2></li>
+        </>
+    )
+}
+
+function TOC({meetings}) {
+    let allTOCItems = [];
+    for (let i = 0; i < ( meetings).length; i++) {
+        const meeting = ( meetings)[i];
+        allTOCItems.push(<TOCItem date={meeting.props.date} />)
+    }
+    return(
+        <>
+            {allTOCItems}
         </>
     )
 }
