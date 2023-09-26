@@ -194,7 +194,7 @@ input[type=submit] {
     cursor: pointer;
 }
 
-input, #fileUploadBox {
+input, .fileUploadBox {
     margin-bottom: 1.8vh;
     border: $offBlack 3px solid;
     border-radius: 3px;
@@ -205,7 +205,7 @@ input, #fileUploadBox {
     padding: 0.8vh;
 }
 
-#fileUploadBox {
+.fileUploadBox {
     display: flex;
     align-items: center;
     font-weight: normal;

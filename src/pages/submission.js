@@ -11,9 +11,22 @@ export default function Submission() {
                 <form onSubmit={(event) => submitPost(event)}>
                     <label>Today's date (formatted mmddyy)</label>
                     <input type="number" id="dateString" min="090123" max="123124" placeholder="092123" minLength="6" maxLength="6" required/>
-                    <label id="fileUploadLabel">Any images that were taken today that should be on the site
-                        <input type="file" id="imageFiles" accept="image/*" onChange={fileUploadChanger} multiple required />
-                        <div id="fileUploadBox">
+                    <label class="fileUploadLabel">First Featured Image
+                        <input type="file" id="imageFeatured1" accept="image/*" onChange={(event) => {fileUploadChanger(event.target, document.getElementById("featured1"))}} required />
+                        <div class="fileUploadBox" id="featured1">
+                            Upload...
+                        </div>
+                    </label>
+                    <label class="fileUploadLabel">Second Featured Image
+                        <input type="file" id="imageFeatured2" accept="image/*" onChange={(event) => {fileUploadChanger(event.target, document.getElementById("featured2"))}} required />
+                        <div class="fileUploadBox" id="featured2">
+                            Upload...
+                        </div>
+                    </label>
+                    
+                    <label class="fileUploadLabel">Any other images that were taken today that should be on the site
+                        <input type="file" id="imageFiles" accept="image/*" onChange={(event) => {fileUploadChanger(event.target, document.getElementById("other"))}} multiple required />
+                        <div class="fileUploadBox" id="other">
                             Upload...
                         </div>
                     </label>
@@ -26,13 +39,14 @@ export default function Submission() {
     );
 }
 
-function fileUploadChanger() {
-    let inputElem = document.querySelector("input[type=file]");
+function fileUploadChanger(sender, boxToChange) {
+    let inputElem = sender;
+    console.log(sender);
     if(inputElem.value !== "") {
         let fileNamesArray = []
         for(let i = 0; i < inputElem.files.length; i++) {
             fileNamesArray.push(inputElem.files[i].name)
         }
-        document.getElementById("fileUploadBox").innerHTML = inputElem.files.length + " file" + (inputElem.files.length === 1 ? "" : "s") + " selected: " + fileNamesArray.toString();
+        boxToChange.innerHTML = inputElem.files.length + " file" + (inputElem.files.length === 1 ? "" : "s") + " selected: " + fileNamesArray.toString();
     }
 }

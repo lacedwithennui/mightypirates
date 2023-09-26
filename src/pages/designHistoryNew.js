@@ -85,7 +85,7 @@ async function AllMeetings() {
             for(let j = 0; j < json["posts"][i]["images"].length; j++) {
                 let response2 = await fetch("http://mp.parkerdaletech.com:8080/db/site/images/" + json["posts"][i]["images"][j]["$oid"]);
                 let json2 = await response2.json();
-                let image = <GalleryImage featured={(j <= 1)} src={await json2["data"]} alt=""></GalleryImage> //data:image/png;base64,
+                let image = <GalleryImage featured={json2["featured"]} src={await json2["data"]} alt=""></GalleryImage> //data:image/png;base64,
                 images.push(image);
             }
         }

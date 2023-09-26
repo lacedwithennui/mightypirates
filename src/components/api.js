@@ -11,7 +11,7 @@ function betterArrToString(array) {
     return finalString;
 }
 
-export async function convertImages(imageElement, callback) {
+export async function convertImages(imageElement, featured, callback) {
     let input = imageElement;
     let insertedIDs = [];
     for (let i = 0; i < input.files.length; i++) {
@@ -21,7 +21,7 @@ export async function convertImages(imageElement, callback) {
             await fetch("http://mp.parkerdaletech.com:8080/db/site/upload/images",
                 {
                     method: "POST",
-                    body: "{\"fileName\": \""+ file.name +"\", \"data\": \"" + reader.result + "\"}"
+                    body: "{\"fileName\": \""+ file.name +"\", \"featured\": " + featured + ", \"data\": \"" + reader.result + "\"}"
                 }
             )
             .then((response) => {console.log(response); return response.json()})
@@ -36,27 +36,34 @@ export async function submitPost(event) {
     event.preventDefault();
     document.getElementById("submit").disabled = true;
     let dateString = document.getElementById("dateString").value.toString();
-    convertImages(document.getElementById("imageFiles"), (ids) => {
-        let idString = betterArrToString(ids);
-        let description = document.getElementById("description").value.toString();
-        console.log("dateString: " + dateString);
-        console.log("imageID: " + idString);
-        console.log("description: " + description);
-        setTimeout(() => {
-            let body = JSON.stringify(JSON.parse('{"dateString": "' + dateString + '", "images": ' + idString.toString() + ', "description": "' + description + '"}'));
-            console.log(body)
-            fetch("http://mp.parkerdaletech.com:8080/db/site/upload/posts", {
-                method: "POST",
-                body: body
-            })
-                .then((response) => {
-                    console.log(response);
-                    return response.json();
-                })
-                .then((json) => {
-                    console.log(json);
-                })
-                .then(() => {alert("Success!"); document.getElementById("submit").disabled = false});
-        }, 1000)
-    });
+    convertImages(document.getElementById("imageFeatured1"), true, (idsTopLevel) => {
+        convertImages(document.getElementById("imageFeatured2"), true, (idsMidLevel) => {
+            convertImages(document.getElementById("imageFiles"), false, (idsBottomLevel) => {
+                let allIds = idsTopLevel.concat(idsMidLevel).concat(idsBottomLevel);
+                console.log(allIds);
+                let idString = betterArrToString(allIds);
+                let description = document.getElementById("description").value.toString();
+                console.log("dateString: " + dateString);
+                console.log("imageID: " + idString);
+                console.log("description: " + description);
+                setTimeout(() => {
+                    let body = JSON.stringify(JSON.parse('{"dateString": "' + dateString + '", "images": ' + idString.toString() + ', "description": "' + description + '"}'));
+                    console.log(body)
+                    fetch("http://mp.parkerdaletech.com:8080/db/site/upload/posts", {
+                        method: "POST",
+                        body: body
+                    })
+                        .then((response) => {
+                            console.log(response);
+                            return response.json();
+                        })
+                        .then((json) => {
+                            console.log(json);
+                        })
+                        .then(() => {alert("Success!"); document.getElementById("submit").disabled = false});
+                }, 1000)
+            });
+        })
+        
+    })
 }
