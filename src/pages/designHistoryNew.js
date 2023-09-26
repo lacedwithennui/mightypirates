@@ -24,15 +24,6 @@ export default function DesignHistory() {
                 </ul>
                 <h1 className="padded">Meetings</h1>
                 {allMeetings}
-                {/* <MeetingDay date="092123">
-                    <Gallery>
-                        <GalleryImage featured src={ballCad} alt="A CAD representation of packed SNAMEmon balls." />
-                        <GalleryImage featured src={manila} alt="A manila envelope prototype of an initial hull design." />
-                    </Gallery>
-                    <p className="paddedVertical">
-                        Today, the Pirates worked on brainstorming a hull design and conceptualizing maximum SNAMEmon ball storage within the chassis. After discussion and research, we settled on a pontoon design to maximize glide in the water and to allow more SNAMEmon ball compartments to reduce shifting within the hull.
-                    </p>
-                </MeetingDay> */}
             </div>
         </>
     )
@@ -41,18 +32,19 @@ export default function DesignHistory() {
 function TOCItem({date}) {
     return (
         <>
-            <li><a href={"#" + date} className="tocitem">{date.slice(0,2)+"/"+date.slice(2,4)+"/"+date.slice(4,6)}</a></li>
+            <li><h2><a href={"#" + date} className="tocitem">{date.slice(0,2)+"/"+date.slice(2,4)+"/"+date.slice(4,6)}</a></h2></li>
         </>
     )
 }
 
-function MeetingDay({children, date}) {
+function MeetingDay({children, date, description}) {
     return (
         <>
             <div id={date} className="meetingDiv paddedNoTop">
                 <h2 className="meetingH2">{date.slice(0,2)+"/"+date.slice(2,4)+"/"+date.slice(4,6)}</h2>
+                {children}
                 <p className="article">
-                    {children}
+                    {description}
                 </p>
             </div>
         </>
@@ -60,25 +52,24 @@ function MeetingDay({children, date}) {
 }
 
 async function AllMeetings() {
-    let response = await fetch("http://mp.parkerdaletech.com:4567/db/site/posts");
+    let response = await fetch("http://mp.parkerdaletech.com:8080/db/site/posts");
     let json = await response.json();
     let allDays = [];
     for (let i = 0; i < json["posts"].length; i++) {
         let images = [];
         if(json["posts"][i]["images"]) {
             for(let j = 0; j < json["posts"][i]["images"].length; j++) {
-                let response2 = await fetch("http://mp.parkerdaletech.com:4567/db/site/images/" + json["posts"][i]["images"][j]["$oid"]);
+                let response2 = await fetch("http://mp.parkerdaletech.com:8080/db/site/images/" + json["posts"][i]["images"][j]["$oid"]);
                 let json2 = await response2.json();
                 let image = <GalleryImage featured={(j <= 1)} src={await json2["data"]} alt=""></GalleryImage> //data:image/png;base64,
                 images.push(image);
             }
         }
         allDays.push(
-            <MeetingDay date={json["posts"][i]["dateString"]}>
+            <MeetingDay date={json["posts"][i]["dateString"]} description={json["posts"][i]["description"]}>
                 <Gallery>
                     {images}
                 </Gallery>
-                {json["posts"][i]["description"]}
             </MeetingDay>
         );
     }

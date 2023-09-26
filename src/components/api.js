@@ -18,7 +18,7 @@ export async function convertImages(imageElement, callback) {
         let reader = new FileReader();
         const file = input.files[i];
         reader.onload = async () => {
-            await fetch("http://mp.parkerdaletech.com:4567/db/site/upload/images",
+            await fetch("http://mp.parkerdaletech.com:8080/db/site/upload/images",
                 {
                     method: "POST",
                     body: "{\"fileName\": \""+ file.name +"\", \"data\": \"" + reader.result + "\"}"
@@ -44,7 +44,7 @@ export async function submitPost(event) {
         setTimeout(() => {
             let body = JSON.stringify(JSON.parse('{"dateString": "' + dateString + '", "images": ' + idString.toString() + ', "description": "' + description + '"}'));
             console.log(body)
-            fetch("http://mp.parkerdaletech.com:4567/db/site/upload/posts", {
+            fetch("http://mp.parkerdaletech.com:8080/db/site/upload/posts", {
                 method: "POST",
                 body: body
             })
