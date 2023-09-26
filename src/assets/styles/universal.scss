@@ -171,3 +171,44 @@ ul {
 .featured {
     width: 50%;
 }
+
+form { 
+    display: flex;
+    flex-direction: column;
+}
+
+input[type=number] {
+    width: 20vw;
+}
+
+input[type=file] {
+    display: none;
+}
+
+input[type=submit] {
+    cursor: pointer;
+}
+
+input, #fileUploadBox {
+    margin-bottom: 1.8vh;
+    border: $offBlack 3px solid;
+    border-radius: 3px;
+    background-color: $offWhite;
+    height: 5vh;
+    font-size: large;
+    vertical-align: middle;
+    padding: 0.8vh;
+}
+
+#fileUploadBox {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    cursor: pointer;
+    margin-top: 0.8vh;
+}
+
+label {
+    margin-bottom: 0.8vh;
+    font-weight: bold;
+}
