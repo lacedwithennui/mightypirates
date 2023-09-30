@@ -1,20 +1,27 @@
 import Hero from "../components/Hero"
 import prototype from "../assets/images/boatPrototype.jpeg"
 import loading from "../assets/images/loading.gif"
-import Gallery, { GalleryImage } from "../components/Gallery"
+import Gallery from "../components/Gallery"
 import { useEffect, useState } from "react"
+import { getImages } from "../components/api"
 
+/**
+ * The Design History page of the website
+ */
 export default function DesignHistory() {
     document.title = "The Mighty Pirates | Design History"
-    const [allMeetings, setAllMeetings] = useState([])
-    const [allTOC, setAllTOC] = useState([]);
-
+    // Set empty state for meeting and table of contents components
+    const [toc, setTOC] = useState();
+    const [allMeetings, setAllMeetings] = useState([]);
 
     useEffect(() => {
         async function set() {
             let meetings = await AllMeetings();
-            setAllMeetings(await meetings);
-            setAllTOC(<TOC meetings={meetings} />);
+            // set the meetings array to the actual meetings once loaded
+            setAllMeetings(meetings);
+            // set the toc to the actual toc once loaded
+            setTOC(<TOC meetings={meetings} />);
+            // hide all loading gifs
             for(let i = 0; i < document.getElementsByClassName("loading").length; i++) {
                 let loadingGif = document.getElementsByClassName("loading")[i]
                 loadingGif.style.display = "none";
@@ -28,10 +35,7 @@ export default function DesignHistory() {
             <div id="mainContent">
                 <h1 className="padded">Table of Contents</h1>
                 <img className="loading paddedNoVertical" src={loading} alt="loading..." />
-                <ul className="toc">
-                    {/* <TOCItem date="092123"></TOCItem> */}
-                    {allTOC}
-                </ul>
+                {toc}
                 <h1 className="padded">Meetings</h1>
                 <img className="loading paddedNoVertical" src={loading} alt="loading..." />
                 {allMeetings}
@@ -56,7 +60,9 @@ function TOC({meetings}) {
     }
     return(
         <>
-            {allTOCItems}
+            <ul className="toc">
+                {allTOCItems}
+            </ul>
         </>
     )
 }
@@ -76,18 +82,13 @@ function MeetingDay({children, date, description}) {
 }
 
 async function AllMeetings() {
-    let response = await fetch("http://mp.parkerdaletech.com:8080/db/site/posts");
+    let response = await fetch("http://localhost:8080/db/site/posts");
     let json = await response.json();
     let allDays = [];
     for (let i = 0; i < json["posts"].length; i++) {
         let images = [];
         if(json["posts"][i]["images"]) {
-            for(let j = 0; j < json["posts"][i]["images"].length; j++) {
-                let response2 = await fetch("http://mp.parkerdaletech.com:8080/db/site/images/" + json["posts"][i]["images"][j]["$oid"]);
-                let json2 = await response2.json();
-                let image = <GalleryImage featured={json2["featured"]} src={await json2["data"]} alt=""></GalleryImage> //data:image/png;base64,
-                images.push(image);
-            }
+            images = await getImages(json["posts"][i]["images"])
         }
         allDays.push(
             <MeetingDay date={json["posts"][i]["dateString"]} description={json["posts"][i]["description"]}>
