@@ -82,7 +82,7 @@ function MeetingDay({children, date, description}) {
 }
 
 async function AllMeetings() {
-    let response = await fetch("http://localhost:8080/db/site/posts");
+    let response = await fetch("http://mp.parkerdaletech.com:8080/db/site/posts");
     let json = await response.json();
     let allDays = [];
     for (let i = 0; i < json["posts"].length; i++) {

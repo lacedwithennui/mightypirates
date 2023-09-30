@@ -13,7 +13,7 @@ export async function postImages(imageElement, featured, callback) {
         let reader = new FileReader();
         const file = imageElement.files[i];
         reader.onload = async () => {
-            await fetch("http://localhost:8080/db/site/upload/images",
+            await fetch("http://mp.parkerdaletech.com:8080/db/site/upload/images",
                 {
                     method: "POST",
                     body: "{\"fileName\": \""+ file.name +"\", \"featured\": " + featured + ", \"data\": \"" + reader.result + "\"}"
@@ -36,7 +36,7 @@ export async function postImages(imageElement, featured, callback) {
 export async function getImages(imageIDsArray) {
     let output = [];
     for(let i = 0; i < imageIDsArray.length; i++) {
-        let response = await fetch("http://localhost:8080/db/site/images/" + imageIDsArray[i]["$oid"]);
+        let response = await fetch("http://mp.parkerdaletech.com:8080/db/site/images/" + imageIDsArray[i]["$oid"]);
         let json = await response.json();
         let image = <GalleryImage featured={json["featured"]} src={await json["data"]} alt=""></GalleryImage>
         output.push(image);
@@ -64,7 +64,7 @@ export async function submitPost(event) {
                 // setTimeout(() => {
                     let body = JSON.stringify(JSON.parse('{"dateString": "' + dateString + '", "images": ' + idString.toString() + ', "description": "' + description + '"}'));
                     console.log(body)
-                    fetch("http://localhost:8080/db/site/upload/posts", {
+                    fetch("http://mp.parkerdaletech.com:8080/db/site/upload/posts", {
                         method: "POST",
                         body: body
                     })
