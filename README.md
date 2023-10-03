@@ -1,1 +1,1 @@
-### The Wahe Life React Native Website
+### The Mighty Pirates' React Native Website
