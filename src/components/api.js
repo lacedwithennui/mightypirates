@@ -1,5 +1,6 @@
 import { GalleryImage } from "./Gallery";
 import { until } from "./util";
+import Cookies from "universal-cookie";
 
 /**
  * Posts images to the database from the given input[type=file] element
@@ -61,25 +62,51 @@ export async function submitPost(event) {
                 console.log("dateString: " + dateString);
                 console.log("imageID: " + idString);
                 console.log("description: " + description);
-                // setTimeout(() => {
-                    let body = JSON.stringify(JSON.parse('{"dateString": "' + dateString + '", "images": ' + idString.toString() + ', "description": "' + description + '"}'));
-                    console.log(body)
-                    fetch("http://mp.parkerdaletech.com:8080/db/site/upload/posts", {
-                        method: "POST",
-                        body: body
-                    })
-                    .then(async (response) => {
-                        console.log(response);
-                        let json = await response.json();
-                        console.log(json)
-                        console.log(json.hasOwnProperty("error").valueOf() + json["error"])
-                        alert((response["ok"] ? "Success!" : ("Upload failed: " + response["statusText"] + "." + (json.hasOwnProperty("error") ? " Error: " + json["error"] : ""))) + " Status Code: " + response["status"].toString());
-                        document.getElementById("submit").disabled = false;
-                        return json;
-                    });
-                // }, 1000)
+                let body = JSON.stringify(JSON.parse('{"dateString": "' + dateString + '", "images": ' + idString.toString() + ', "description": "' + description + '"}'));
+                console.log(body)
+                console.log(document.cookie.split(";")[1].trim().split("=")[1])
+                // let headers = JSON.parse('{"Authorization": "' + document.cookie.split(";")[1].trim().split("=")[1] + '"}');
+                // console.log(JSON.stringify(headers))
+                fetch("http://mp.parkerdaletech.com:8080/db/site/upload/posts", {
+                    method: "POST",
+                    headers: {
+                        Authorization: "Bearer " + document.cookie.split(";")[1].trim().split("=")[1]
+                    },
+                    body: body
+                })
+                .then(async (response) => {
+                    console.log(response);
+                    let json = await response.json();
+                    console.log(json)
+                    console.log(json.hasOwnProperty("error") + json["error"])
+                    alert((response["ok"] ? "Success!" : ("Upload failed: " + response["statusText"] + "." + (json.hasOwnProperty("error") ? " Error: " + json["error"] : ""))) + " Status Code: " + response["status"].toString());
+                    document.getElementById("submit").disabled = false;
+                    return json;
+                });
             });
         })
         
     })
+}
+
+export async function auth(event, username, password) {
+    event.preventDefault();
+    fetch("http://mp.parkerdaletech.com:8080/db/auths", {
+        method: "GET",
+        headers: {
+            Authorization: "Basic " + btoa(username + ":" + password)
+        }
+    })
+    .then((response) => {
+        console.log(response);
+        return response.json();
+    })
+    .then((json) => {
+        console.log(json);
+        if(json["token"]) {
+            new Cookies().set("token", json["token"]);
+        }
+        console.log(new Cookies().get("token"));
+        window.location.href = "/submit"
+    });
 }

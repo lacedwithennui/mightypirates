@@ -215,10 +215,29 @@ input, .fileUploadBox {
 
 label {
     margin-bottom: 0.8vh;
+    // height: 10vh;
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
 }
 
 .loading {
     width: 6vw;
     height: width;
+}
+
+#passwordContainer {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2.8vh;
+    justify-content: space-between;
+}
+
+.eye {
+    align-self: center;
+}
+
+#pword {
+    margin-bottom: 0;
+    width: 93%;
 }
