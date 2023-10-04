@@ -1,9 +1,10 @@
 import pirateSketch from "../assets/images/pirateSketch.jpeg"
 import Hero from "../components/Hero";
-import { submitPost } from "../components/api";
+import { redirectIfBadAuth, submitPost } from "../components/api";
 
 export default function Submission() {
     document.title = "Mighty Pirates | Submit a Meeting"
+    redirectIfBadAuth();
     return(
         <>
             <Hero title="Submission Form" src={pirateSketch} />

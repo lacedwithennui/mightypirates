@@ -110,3 +110,15 @@ export async function auth(event, username, password) {
         window.location.href = "/submit"
     });
 }
+
+export function redirectIfBadAuth() {
+    fetch("http://mp.parkerdaletech.com:8080/db/auths/check", {
+        headers: {
+            Authorization: "Bearer " + document.cookie.split(";")[1].trim().split("=")[1]
+        }
+    }).then((response) => {
+        if(response.status === 401) {
+            window.location.href = "/login"
+        }
+    })
+}
