@@ -70,7 +70,7 @@ export async function submitPost(event) {
                 fetch("http://mp.parkerdaletech.com:8080/db/site/upload/posts", {
                     method: "POST",
                     headers: {
-                        Authorization: "Bearer " + document.cookie.split(";")[1].trim().split("=")[1]
+                        Authorization: "Bearer " + new Cookies().get("token")//document.cookie.split(";")[1].localhost().split("=")[1]
                     },
                     body: body
                 })
@@ -114,7 +114,7 @@ export async function auth(event, username, password) {
 export function redirectIfBadAuth() {
     fetch("http://mp.parkerdaletech.com:8080/db/auths/check", {
         headers: {
-            Authorization: "Bearer " + document.cookie.split(";")[1].trim().split("=")[1]
+            Authorization: "Bearer " + new Cookies().get("token")//document.cookie.split(";")[1].trim().split("=")[1]
         }
     }).then((response) => {
         if(response.status === 401) {
