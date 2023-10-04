@@ -1,52 +1,61 @@
 import Hero from "../components/Hero"
-import manila from "../assets/images/manila.jpeg"
-import ballCad from "../assets/images/snamemonballcad.png"
 import prototype from "../assets/images/boatPrototype.jpeg"
-import Gallery, { GalleryImage } from "../components/Gallery"
+import loading from "../assets/images/loading.gif"
+import { useEffect, useState } from "react"
+import { AllMeetings } from "../components/api"
+import TOCItem from "../components/TOCItem";
 
+/**
+ * The Design History page of the website
+ */
 export default function DesignHistory() {
     document.title = "The Mighty Pirates | Design History"
+    // Set empty state for meeting and table of contents components
+    const [toc, setTOC] = useState();
+    const [allMeetings, setAllMeetings] = useState([]);
 
+    useEffect(() => {
+        async function set() {
+            let meetings = await AllMeetings();
+            // set the meetings array to the actual meetings once loaded
+            setAllMeetings(meetings);
+            // set the toc to the actual toc once loaded
+            setTOC(<TOC meetings={meetings} />);
+            // hide all loading gifs
+            for(let i = 0; i < document.getElementsByClassName("loading").length; i++) {
+                let loadingGif = document.getElementsByClassName("loading")[i]
+                loadingGif.style.display = "none";
+            }
+        }
+        set();
+    }, []);
     return (
         <>
             <Hero src={prototype} title="Design History" />
             <div id="mainContent">
                 <h1 className="padded">Table of Contents</h1>
-                <ul className="toc">
-                    <TOCItem date="092123"></TOCItem>
-                </ul>
+                <img className="loading paddedNoVertical" src={loading} alt="loading..." />
+                {toc}
                 <h1 className="padded">Meetings</h1>
-                <MeetingDay date="092123">
-                    <Gallery>
-                        <GalleryImage featured src={ballCad} alt="A CAD representation of packed SNAMEmon balls." />
-                        <GalleryImage featured src={manila} alt="A manila envelope prototype of an initial hull design." />
-                    </Gallery>
-                    <p className="paddedVertical">
-                        Today, the Pirates worked on brainstorming a hull design and conceptualizing maximum SNAMEmon ball storage within the chassis. After discussion and research, we settled on a pontoon design to maximize glide in the water and to allow more SNAMEmon ball compartments to reduce shifting within the hull.
-                    </p>
-                </MeetingDay>
+                <img className="loading paddedNoVertical" src={loading} alt="loading..." />
+                {allMeetings}
             </div>
         </>
     )
 }
 
-function TOCItem({date}) {
-    return (
+function TOC({meetings}) {
+    let allTOCItems = [];
+    for (let i = 0; i < ( meetings).length; i++) {
+        const meeting = ( meetings)[i];
+        allTOCItems.push(<TOCItem date={meeting.props.date} />)
+    }
+    return(
         <>
-            <li><a href={"#" + date} className="tocitem">{date.slice(0,2)+"/"+date.slice(2,4)+"/"+date.slice(4,6)}</a></li>
+            <ul className="toc">
+                {allTOCItems}
+            </ul>
         </>
     )
 }
 
-function MeetingDay({children, date}) {
-    return (
-        <>
-            <div id={date} className="meetingDiv paddedNoTop">
-                <h2 className="meetingH2">{date.slice(0,2)+"/"+date.slice(2,4)+"/"+date.slice(4,6)}</h2>
-                <p className="article">
-                    {children}
-                </p>
-            </div>
-        </>
-    )
-}

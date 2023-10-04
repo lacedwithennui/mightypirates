@@ -3,7 +3,7 @@ import "./assets/styles/universal.scss";
 import Header from "./components/Header";
 import Home from "./pages";
 import Contact from "./pages/contact";
-import DesignHistory from "./pages/designHistoryNew";
+import DesignHistory from "./pages/designHistory";
 import NotFound from "./pages/error";
 import Submission from "./pages/submission";
 import Login from "./pages/login";

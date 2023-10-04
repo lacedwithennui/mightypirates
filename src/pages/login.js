@@ -1,9 +1,12 @@
-import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5"
-import { auth } from "../components/api"
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import { auth } from "../components/api";
+import Hero from "../components/Hero";
+import pirateSketch from "../assets/images/pirateSketch.jpeg";
 
 export default function Login() {
     return(
         <>
+            <Hero title="Login" src={pirateSketch} />
             <div className="padded" id="formContainer">
                 <form onSubmit={(event) => {auth(event, document.getElementById("uname").value, document.getElementById("pword").value);}}>
                     <label>

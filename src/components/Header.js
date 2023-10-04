@@ -27,10 +27,9 @@ function expandMenu() {
         container.style.alignItems = "center";
         let children = container.querySelectorAll("a");
         children.forEach((child) => {
-            child.style.width = "calc(100% - 20px)";
+            child.style.width = "calc(100% - 15px)";
             child.style.justifyContent = "center";
-        }) 
-        // container.style.float = "right";
+        })
     }
     else {
         container.removeAttribute("style")
