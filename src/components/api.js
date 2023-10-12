@@ -1,7 +1,7 @@
 import Cookies from "universal-cookie";
 import Gallery, { GalleryImage } from "./Gallery";
 import MeetingDay from "./MeetingDay";
-import { until } from "./util";
+import { compress, until } from "./util";
 
 /**
  * Posts images to the database from the given input[type=file] element
@@ -15,10 +15,11 @@ export async function postImages(imageElement, featured, callback = () => {}) {
         let reader = new FileReader();
         const file = imageElement.files[i];
         reader.onload = async () => {
+            let compressed = await compress(reader.result);
             await fetch("http://mp.parkerdaletech.com:8080/db/upload/images",
                 {
                     method: "POST",
-                    body: "{\"fileName\": \""+ file.name +"\", \"featured\": " + featured + ", \"data\": \"" + reader.result + "\"}"
+                    body: "{\"fileName\": \""+ file.name +"\", \"featured\": " + featured + ", \"data\": \"" + compressed/*reader.result*/ + "\"}"
                 }
             )
             .then((response) => {console.log(response); return response.json()})
@@ -40,7 +41,7 @@ export async function getImages(imageIDsArray) {
     for(let i = 0; i < imageIDsArray.length; i++) {
         let response = await fetch("http://mp.parkerdaletech.com:8080/db/images/" + imageIDsArray[i]["$oid"]);
         let json = await response.json();
-        let image = <GalleryImage featured={json["featured"]} src={await json["data"]} alt=""></GalleryImage>
+        let image = <GalleryImage key={json["fileName"]} featured={json["featured"]} src={await json["data"]} alt=""></GalleryImage>
         output.push(image);
     }
     return output;
@@ -148,7 +149,7 @@ export async function AllMeetings() {
             images = await getImages(json["posts"][i]["images"])
         }
         allDays.push(
-            <MeetingDay date={json["posts"][i]["dateString"]} description={json["posts"][i]["description"]}>
+            <MeetingDay key={json["posts"][i]["dateString"]} date={json["posts"][i]["dateString"]} description={json["posts"][i]["description"]}>
                 <Gallery>
                     {images}
                 </Gallery>

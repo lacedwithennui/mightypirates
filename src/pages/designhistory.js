@@ -11,7 +11,7 @@ import TOCItem from "../components/TOCItem";
 export default function DesignHistory() {
     document.title = "The Mighty Pirates | Design History"
     // Set empty state for meeting and table of contents components
-    const [toc, setTOC] = useState();
+    const [toc, setTOC] = useState(<></>);
     const [allMeetings, setAllMeetings] = useState([]);
 
     useEffect(() => {
@@ -48,7 +48,7 @@ function TOC({meetings}) {
     let allTOCItems = [];
     for (let i = 0; i < ( meetings).length; i++) {
         const meeting = ( meetings)[i];
-        allTOCItems.push(<TOCItem date={meeting.props.date} />)
+        allTOCItems.push(<TOCItem key={meeting.props.date} date={meeting.props.date} />)
     }
     return(
         <>
