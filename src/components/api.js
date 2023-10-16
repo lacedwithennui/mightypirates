@@ -9,7 +9,7 @@ import { compress, until } from "./util";
  * @param {bool} featured whether the image should be marked as featured or not
  * @param {Function} callback a function to be executed when all is done.
  */
-export async function postImages(imageElement, featured, callback = () => {}) {
+export async function postImages(imageElement, featured) {
     let insertedIDs = [];
     for (let i = 0; i < imageElement.files.length; i++) {
         let reader = new FileReader();
@@ -149,7 +149,7 @@ export async function AllMeetings() {
             images = await getImages(json["posts"][i]["images"])
         }
         allDays.push(
-            <MeetingDay key={json["posts"][i]["dateString"]} date={json["posts"][i]["dateString"]} description={json["posts"][i]["description"]}>
+            <MeetingDay first={(i === 0)} key={json["posts"][i]["dateString"]} date={json["posts"][i]["dateString"]} description={json["posts"][i]["description"]}>
                 <Gallery>
                     {images}
                 </Gallery>

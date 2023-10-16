@@ -1,4 +1,5 @@
 import pirateSketch from "../assets/images/pirateSketch.jpeg"
+import defaultHero from "../assets/images/pirateCompressed.png"
 import Hero from "../components/Hero";
 import { redirectIfBadAuth, submitPost } from "../components/api";
 
@@ -7,26 +8,26 @@ export default function Submission() {
     redirectIfBadAuth();
     return(
         <>
-            <Hero title="Submission Form" src={pirateSketch} />
+            <Hero title="Submission Form" src={pirateSketch} defaultSrc={defaultHero} />
             <div className="padded" id="formContainer">
                 <form onSubmit={(event) => submitPost(event)}>
                     <label>Today's date (formatted mmddyy)</label>
                     <input type="number" id="dateString" min="090123" max="123124" placeholder="092123" minLength="6" maxLength="6" required/>
                     <label class="fileUploadLabel">First Featured Image
-                        <input type="file" id="imageFeatured1" accept="image/*" onChange={(event) => {fileUploadChanger(event.target, document.getElementById("featured1"))}} required />
+                        <input type="file" id="imageFeatured1" accept="image/*" onChange={(event) => {fileUploadChanger(event.target, document.getElementById("featured1"))}} />
                         <div class="fileUploadBox" id="featured1">
                             Upload...
                         </div>
                     </label>
                     <label class="fileUploadLabel">Second Featured Image
-                        <input type="file" id="imageFeatured2" accept="image/*" onChange={(event) => {fileUploadChanger(event.target, document.getElementById("featured2"))}} required />
+                        <input type="file" id="imageFeatured2" accept="image/*" onChange={(event) => {fileUploadChanger(event.target, document.getElementById("featured2"))}} />
                         <div class="fileUploadBox" id="featured2">
                             Upload...
                         </div>
                     </label>
                     
                     <label class="fileUploadLabel">Any other images that were taken today that should be on the site
-                        <input type="file" id="imageFiles" accept="image/*" onChange={(event) => {fileUploadChanger(event.target, document.getElementById("other"))}} multiple required />
+                        <input type="file" id="imageFiles" accept="image/*" onChange={(event) => {fileUploadChanger(event.target, document.getElementById("other"))}} multiple />
                         <div class="fileUploadBox" id="other">
                             Upload...
                         </div>
