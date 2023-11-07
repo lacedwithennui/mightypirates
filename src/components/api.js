@@ -2,6 +2,9 @@ import Cookies from "universal-cookie";
 import Gallery, { GalleryImage } from "./Gallery";
 import MeetingDay from "./MeetingDay";
 import { compress, until } from "./util";
+import publicKey from "../assets/publicKey.json";
+import jsencryptlib from "jsencrypt";
+const jsencrypt = new jsencryptlib();
 
 /**
  * Posts images to the database from the given input[type=file] element
@@ -98,10 +101,13 @@ export async function submitPost(event) {
 export async function auth(event, username, password) {
     // prevent the redirect to /submit until we know that the credentials are valid
     event.preventDefault();
-    fetch("http://mp.parkerdaletech.com:8080/db/auths", {
+    jsencrypt.setPublicKey(publicKey.key);
+    let encrypted = jsencrypt.encrypt(username + ":" + password);
+    console.log(encrypted.toString())
+    fetch("http://localhost:8080/db/auths", {
         method: "GET",
         headers: {
-            Authorization: "Basic " + btoa(username + ":" + password)
+            Authorization: "Basic " + encrypted.toString()
         }
     })
     .then((response) => {
