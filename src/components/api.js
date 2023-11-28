@@ -104,7 +104,7 @@ export async function auth(event, username, password) {
     jsencrypt.setPublicKey(publicKey.key);
     let encrypted = jsencrypt.encrypt(username + ":" + password);
     console.log(encrypted.toString())
-    fetch("http://localhost:8080/db/auths", {
+    fetch("http://mp.parkerdaletech.com:8080/db/auths", {
         method: "GET",
         headers: {
             Authorization: "Basic " + encrypted.toString()
