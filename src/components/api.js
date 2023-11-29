@@ -10,7 +10,6 @@ const jsencrypt = new jsencryptlib();
  * Posts images to the database from the given input[type=file] element
  * @param {HTMLElement} imageElement an HTML element of type input[type=file]
  * @param {bool} featured whether the image should be marked as featured or not
- * @param {Function} callback a function to be executed when all is done.
  */
 export async function postImages(imageElement, featured) {
     let insertedIDs = [];
@@ -22,6 +21,9 @@ export async function postImages(imageElement, featured) {
             await fetch("http://mp.parkerdaletech.com:8080/db/upload/images",
                 {
                     method: "POST",
+                    headers: {
+                        Authorization: "Bearer " + new Cookies().get("token")
+                    },
                     body: "{\"fileName\": \""+ file.name +"\", \"featured\": " + featured + ", \"data\": \"" + compressed/*reader.result*/ + "\"}"
                 }
             )
