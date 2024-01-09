@@ -44,6 +44,7 @@ export default function Header() {
                 <div id="headerButtons">
                     <NavButton title="Home" href="/" id="home" />
                     <NavButton title="Design History" href="/design-history" id="design-history" />
+                    <NavButton title="Design Package" href="/design-package" id="design-package" />
                     <NavButton title="Contact Us" href="/contact" id="contact" lastchild />
                 </div>
                 <NavButton img={menu} alt="menu button" imgid="menuImg" id="menuButton" onclick={() => expandMenu()} />
