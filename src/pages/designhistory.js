@@ -4,6 +4,7 @@ import loading from "../assets/images/loading.gif"
 import { useEffect, useState } from "react"
 import { AllMeetings } from "../components/api"
 import TOCItem from "../components/TOCItem";
+import defaultHero from "../assets/images/boatPrototypeCompressed.png"
 
 /**
  * The Design History page of the website
@@ -31,12 +32,12 @@ export default function DesignHistory() {
     }, []);
     return (
         <>
-            <Hero src={prototype} title="Design History" />
+            <Hero src={prototype} defaultSrc={defaultHero} title="Design History" />
             <div id="mainContent">
-                <h1 className="padded">Table of Contents</h1>
+                <h1 className="cardMarginNoBottom cardTitle">Table of Contents</h1>
                 <img className="loading paddedNoVertical" src={loading} alt="loading..." />
                 {toc}
-                <h1 className="padded">Meetings</h1>
+                <h1 className="cardMarginNoBottom cardTitle">Meetings</h1>
                 <img className="loading paddedNoVertical" src={loading} alt="loading..." />
                 {allMeetings}
             </div>
@@ -52,9 +53,11 @@ function TOC({meetings}) {
     }
     return(
         <>
-            <ul className="toc">
-                {allTOCItems}
-            </ul>
+            <div className="card cardMarginNoTop">
+                <ul className="toc padded">
+                    {allTOCItems}
+                </ul>
+            </div>
         </>
     )
 }

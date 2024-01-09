@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 import { compress } from "./util";
 
-export default function Hero({src, title}) {
-    const [imageUrl, setImageUrl] = useState("");
+export default function Hero({src, defaultSrc, title}) {
+    const [imageUrl, setImageUrl] = useState(defaultSrc);
     useEffect(() => {
-        // if(imageUrl === src || imageUrl === "" || imageUrl === undefined) {
         async function set() {
             setImageUrl(await compress(src))
         }
-            // setImageUrl(compress(src))
-            // console.log("IMGURL " + imageUrl)
         set();
-        // }
     });
 
     return (

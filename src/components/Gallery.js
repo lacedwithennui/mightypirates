@@ -22,7 +22,7 @@ export function GalleryImage({featured, src, alt}) {
 
     return(
         <>
-            <img className={featured ? "galleryimg featured" : "galleryimg"} src={imageUrl} alt={alt} />
+            <a className={featured ? "gallerya featured" : "gallerya"} href={imageUrl} target="_blank" rel="noreferrer"><img className="galleryimg" loading="lazy" src={imageUrl} alt={alt} /></a>
         </>
     )
 }
