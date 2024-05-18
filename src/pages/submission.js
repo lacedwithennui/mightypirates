@@ -8,7 +8,7 @@ export default function Submission() {
     redirectIfBadAuth();
     return(
         <>
-            <Hero title="Submission Form" src={pirateSketch} defaultSrc={defaultHero} />
+            <Hero title="Submission Form" otherSrc={pirateSketch} src={defaultHero} />
             <div className="padded" id="formContainer">
                 <form onSubmit={(event) => submitPost(event)}>
                     <label>Today's date (formatted mmddyy)</label>

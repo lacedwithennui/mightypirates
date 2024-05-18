@@ -7,7 +7,7 @@ export default function Home() {
 
     return (
         <>
-            <Hero src={sketch} /*defaultSrc={defaultHero} */title="Meet The Mighty Pirates" />
+            <Hero src={defaultHero} /*defaultSrc={defaultHero} */title="Meet The Mighty Pirates" />
             <div id="mainContent">
                 <p className="article padded">
                     We are <b>Commanding</b>. We are <b>Mighty</b>.

@@ -1,5 +1,5 @@
 import Hero from "../components/Hero"
-import prototype from "../assets/images/boatPrototype.jpeg"
+import prototype from "../assets/images/boatPrototypeCompressed.png"
 import loading from "../assets/images/loading.gif"
 import { useEffect, useState } from "react"
 import { AllMeetings } from "../components/api"

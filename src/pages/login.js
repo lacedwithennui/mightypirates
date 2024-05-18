@@ -1,7 +1,7 @@
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { auth } from "../components/api";
 import Hero from "../components/Hero";
-import pirateSketch from "../assets/images/pirateSketch.jpeg";
+import pirateSketch from "../assets/images/pirateCompressed.png";
 
 export default function Login() {
     return(

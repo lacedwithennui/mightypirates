@@ -8,7 +8,7 @@ export default function DesignPackage() {
 
     return (
         <>
-            <Hero src={sketch} defaultSrc={defaultHero} title="Download the Design Package" />
+            <Hero src={defaultHero} defaultSrc={defaultHero} title="Download the Design Package" />
             <div id="mainContent">
                 <p className="article padded">
                     <a href={designPackage} download>Download our 2024 design package</a> as a zip archive.
