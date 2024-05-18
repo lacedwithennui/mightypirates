@@ -12,7 +12,7 @@ export default function Gallery({children}) {
 }
 
 export function GalleryImage({featured, src, alt}) {
-    const [imageUrl, setImageUrl] = useState("");
+    const [imageUrl, setImageUrl] = useState(src);
     useEffect(() => {
         async function set() {
             setImageUrl(await compress(src))
@@ -25,4 +25,9 @@ export function GalleryImage({featured, src, alt}) {
             <img className={featured ? "galleryimg featured" : "galleryimg"} src={imageUrl} alt={alt} />
         </>
     )
+}
+
+export function expandGalleryImage(event) {
+    const sender = event.target;
+    
 }

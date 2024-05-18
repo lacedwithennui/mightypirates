@@ -18,7 +18,7 @@ export async function postImages(imageElement, featured) {
         const file = imageElement.files[i];
         reader.onload = async () => {
             let compressed = await compress(reader.result);
-            await fetch("http://db.hpbelmont.com/upload/images",
+            await fetch("https://db.hpbelmont.com/upload/images",
                 {
                     method: "POST",
                     headers: {
@@ -44,7 +44,7 @@ export async function postImages(imageElement, featured) {
 export async function getImages(imageIDsArray) {
     let output = [];
     for(let i = 0; i < imageIDsArray.length; i++) {
-        let response = await fetch("http://db.hpbelmont.com/images/" + imageIDsArray[i]["$oid"]);
+        let response = await fetch("https://db.hpbelmont.com/images/" + imageIDsArray[i]["$oid"]);
         let json = await response.json();
         let image = <GalleryImage key={json["fileName"]} featured={json["featured"]} src={await json["data"]} alt=""></GalleryImage>
         output.push(image);
@@ -70,7 +70,7 @@ export async function submitPost(event) {
     let allIds = featured1.concat(featured2).concat(notFeatured);
     let idString = allIds.betterToString();
     let description = document.getElementById("description").value.toString();
-    fetch("http://db.hpbelmont.com/upload/posts", {
+    fetch("https://db.hpbelmont.com/upload/posts", {
         method: "POST",
         headers: {
             Authorization: "Bearer " + new Cookies().get("token")
@@ -106,7 +106,7 @@ export async function auth(event, username, password) {
     jsencrypt.setPublicKey(publicKey.key);
     let encrypted = jsencrypt.encrypt(username + ":" + password);
     console.log(encrypted.toString())
-    fetch("http://db.hpbelmont.com/auths", {
+    fetch("https://db.hpbelmont.com/auths", {
         method: "GET",
         headers: {
             Authorization: "Basic " + encrypted.toString()
@@ -132,7 +132,7 @@ export async function auth(event, username, password) {
  * Redirects the user to /login if their token is invalid
  */
 export function redirectIfBadAuth() {
-    fetch("http://db.hpbelmont.com/auths/check", {
+    fetch("https://db.hpbelmont.com/auths/check", {
         headers: {
             Authorization: "Bearer " + new Cookies().get("token")
         }
@@ -148,7 +148,7 @@ export function redirectIfBadAuth() {
  * @returns an array of MeetingDay elements from the list of all posts
  */
 export async function AllMeetings() {
-    let response = await fetch("http://db.hpbelmont.com/posts");
+    let response = await fetch("https://db.hpbelmont.com/posts");
     let json = await response.json();
     let allDays = [];
     for (let i = 0; i < json["posts"].length; i++) {
